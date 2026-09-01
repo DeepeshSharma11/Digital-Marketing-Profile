@@ -66,6 +66,12 @@ const jsonLd = {
       'creator': {
         '@type': 'Person',
         'name': 'Deepesh Sharma',
+        'jobTitle': 'CTO & Co-Founder, Focitech',
+        'url': 'https://focitech.in/deepesh-sharma'
+      },
+      'accountablePerson': {
+        '@type': 'Person',
+        'name': 'Deepesh Sharma',
         'url': 'https://focitech.in/deepesh-sharma'
       }
     },

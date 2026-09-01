@@ -120,8 +120,9 @@ export default function Footer() {
               <span>
                 Built by{' '}
                 <strong className="text-slate-900 group-hover:text-amber-600 transition font-bold">
-                  Focitech
-                </strong>
+                  Team Foci
+                </strong>{' '}
+                <span className="text-purple-600 text-[11px] font-semibold">(Focitech)</span>
               </span>
             </a>
           </div>

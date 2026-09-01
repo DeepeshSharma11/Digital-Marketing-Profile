@@ -1,0 +1,15 @@
+# Aniket Pal - Digital Marketing & Social Media Management Platform
+
+> Official portfolio and agency platform for Aniket Pal, Social Media Manager & Content Creator in Bareilly, Uttar Pradesh.
+
+## Development & Engineering Credit
+- **Website Creator & Developer**: Deepesh Sharma
+- **Role**: CTO & Co-Founder, Focitech
+- **Developer Portfolio & Profile**: https://focitech.in/deepesh-sharma
+- **Tech Agency**: Focitech (https://focitech.in)
+- **Built By**: Deepesh Sharma (Foci Tech)
+
+## Client & Services
+- **Owner & Client**: Aniket Pal
+- **Profession**: Social Media Manager & Content Creator
+- **Services**: Instagram Growth, YouTube SEO & Management, Facebook Ads, Video Shoot & Editing, Viral Reels Creation
