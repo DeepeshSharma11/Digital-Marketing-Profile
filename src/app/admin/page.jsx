@@ -51,16 +51,26 @@ export default function AdminPage() {
     setInquiries(data || []);
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Default master PIN for admin access
-    if (password === 'admin123' || password === 'aniket2026') {
-      setIsAuthenticated(true);
-      sessionStorage.setItem('aniket_admin_auth', 'true');
-      setAuthError('');
-      loadInquiries();
-    } else {
-      setAuthError('Invalid Admin Passcode. Please enter "aniket2026" or "admin123"');
+    setAuthError('');
+    try {
+      const res = await fetch('/api/admin/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setIsAuthenticated(true);
+        sessionStorage.setItem('aniket_admin_auth', 'true');
+        loadInquiries();
+      } else {
+        setAuthError(data.error || 'Invalid Admin Passcode.');
+      }
+    } catch (err) {
+      setAuthError('Connection error. Please try again.');
     }
   };
 
@@ -112,7 +122,7 @@ export default function AdminPage() {
               <label className="block text-xs font-semibold text-gray-300 mb-1">Passcode</label>
               <input
                 type="password"
-                placeholder="Enter passcode (e.g. aniket2026)"
+                placeholder="Enter admin passcode"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400"

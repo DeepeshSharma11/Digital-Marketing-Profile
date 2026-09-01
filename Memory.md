@@ -26,4 +26,4 @@
 10. Admin CMS (`/admin`) for leads (WhatsApp & Email direct triggers), content, and Cloudinary media
 
 ## Status Log
-- 2026-09-01: Replaced placeholder images with `Aniket image.jpeg` (`/aniket.jpeg`) across About Me and Hero creator setup.
+- 2026-09-01: Migrated admin password authentication to dynamic server API route (`/api/admin/verify`), reading strictly from `process.env.ADMIN_PASSWORD` / `NEXT_PUBLIC_ADMIN_PIN` with zero hardcoded credentials in client bundles.
