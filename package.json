@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "type": "module",
   "private": true,
-  "author": "Deepesh Sharma <CTO & Co-Founder, Focitech.in> (https://focitech.in)",
+  "author": "Deepesh Sharma <CTO & Co-Founder, Focitech.in> (https://focitech.in/deepesh-sharma)",
   "license": "Custom-Focitech-Attribution",
   "scripts": {
     "dev": "next dev",

@@ -4,6 +4,7 @@
 - **Type**: Next.js Digital Marketing & Social Media Agency Website & CMS
 - **Client**: Aniket Pal - Social Media Manager & Content Creator (Bareilly, UP)
 - **Architect & Developer**: Deepesh Sharma (CTO & Co-Founder, Focitech.in)
+- **Developer Profile**: `https://focitech.in/deepesh-sharma`
 - **Theme**: Luxury Soft White Glassmorphic Aesthetic (`#F8FAFC`, frosted glass panels, ambient mesh glow, warm golden amber accents)
 - **Reference Layout**: `Layout.jpeg`
 - **Repository**: `https://github.com/DeepeshSharma11/Digital-Marketing-Profile.git`
@@ -28,9 +29,9 @@
 11. Client Testimonials & Reviews
 12. Frequently Asked Questions Accordion (Natural localized Q&A)
 13. Lead Capture / Contact Form + CTA Banner (Supabase `inquiries` table)
-14. Footer with branding, social links & developer attribution (`Deepesh Sharma, CTO & Co-Founder, Focitech.in`)
+14. Footer with branding, social links & developer attribution linking directly to `https://focitech.in/deepesh-sharma`
 15. Quick Direct WhatsApp Floating Button
 16. Admin CMS (Secret URL: `/admin12300`) for leads (WhatsApp & Email direct triggers), content, and Cloudinary media
 
 ## Status Log
-- 2026-09-01: Applied GPU hardware acceleration (`transform: translate3d`), isolated `.bg-mesh-canvas` to eliminate scroll repaints, and added `content-visibility: auto` (`.section-smooth`) for zero-lag 60/120fps scrolling.
+- 2026-09-01: Updated all developer attribution signatures, footer badges, LICENSE, and package metadata with direct profile URL `https://focitech.in/deepesh-sharma`.

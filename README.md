@@ -3,16 +3,21 @@
 A high-converting, modern portfolio and lead generation platform for digital marketing and social media management services. Built with Next.js (App Router), Tailwind CSS, Supabase, and Cloudinary.
 
 ## Author & Engineering
-- **Architect & Developer**: Deepesh Sharma (CTO & Co-Founder, [Focitech.in](https://focitech.in))
+- **Architect & Developer**: Deepesh Sharma (CTO & Co-Founder, [Focitech.in Profile](https://focitech.in/deepesh-sharma))
 - **Company**: [Focitech Solutions](https://focitech.in)
 
 ## Features
 
-- **Pixel-Accurate Visual Design**: Dark glassmorphic aesthetic with custom glowing neon accents, live metric counters, and floating mission badges.
+- **Pixel-Accurate Visual Design**: Soft white luxury glassmorphism (`#F8FAFC`, frosted glass panels, ambient mesh glow, warm golden amber accents).
+- **Interactive Agency Tools**:
+  - Social Media ROI & Growth Estimator.
+  - Before vs After Profile Transformation Showcase.
+  - Live Brand Achievement Marquee.
+  - Localized Client FAQs.
 - **Service Offerings**: Structured showcases for Instagram Management, YouTube Management, Facebook Management, Video Editing, and Reels Creation.
 - **Client Inquiries & Lead Capture**: Real-time consultation booking and contact form synced directly to Supabase with instant local fallback.
-- **Admin Control Panel (`/admin`)**:
-  - Secure passcode-protected management portal.
+- **Admin Control Panel (`/admin12300`)**:
+  - Secure passcode-protected secret management portal.
   - Inquiries dashboard with direct WhatsApp (`wa.me`) and email lead triggers.
   - Status updates (`New`, `Contacted`, `Converted`, `Archived`).
   - Cloudinary media uploader for case studies, reels, and photos.
@@ -39,7 +44,7 @@ npm install
 npm run dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) (Admin portal at [http://localhost:3000/admin](http://localhost:3000/admin)).
+Visit [http://localhost:3000](http://localhost:3000) (Admin portal at [http://localhost:3000/admin12300](http://localhost:3000/admin12300)).
 
 ---
 
@@ -70,6 +75,7 @@ docker compose down
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`
    - `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET`
+   - `ADMIN_PASSWORD` (or `NEXT_PUBLIC_ADMIN_PIN`)
 5. Click **Deploy**.
 
 ---
@@ -81,5 +87,5 @@ docker compose down
 
 ## License & Attribution
 
-Copyright (c) 2025-2026 Deepesh Sharma (CTO & Co-Founder, [Focitech.in](https://focitech.in)). All Rights Reserved.
+Copyright (c) 2025-2026 Deepesh Sharma (CTO & Co-Founder, [Focitech.in](https://focitech.in/deepesh-sharma)). All Rights Reserved.
 Distributed under the terms of the Focitech Attribution & Source Code License. See [LICENSE](LICENSE) for full details.
