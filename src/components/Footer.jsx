@@ -62,11 +62,6 @@ export default function Footer() {
               <li><Link href="#services" className="hover:text-amber-400 transition">Services</Link></li>
               <li><Link href="#portfolio" className="hover:text-amber-400 transition">Portfolio</Link></li>
               <li><Link href="#contact" className="hover:text-amber-400 transition">Contact</Link></li>
-              <li>
-                <Link href="/admin" className="hover:text-amber-400 transition inline-flex items-center gap-1 text-purple-400 font-semibold">
-                  <ShieldAlert className="w-3.5 h-3.5" /> Admin Panel
-                </Link>
-              </li>
             </ul>
           </div>
 

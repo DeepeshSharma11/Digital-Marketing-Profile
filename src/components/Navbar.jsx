@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, ShieldAlert } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 export default function Navbar({ onOpenLetTalk }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -45,15 +45,6 @@ export default function Navbar({ onOpenLetTalk }) {
 
           {/* Action CTAs */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link
-              href="/admin"
-              className="text-xs text-gray-400 hover:text-amber-400 flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 hover:border-amber-400/50 transition"
-              title="Admin CMS & Leads"
-            >
-              <ShieldAlert className="w-3.5 h-3.5" />
-              <span>Admin</span>
-            </Link>
-
             <button
               onClick={onOpenLetTalk}
               className="glow-yellow-btn px-6 py-2.5 rounded-lg text-sm font-bold tracking-wide shadow-lg shadow-amber-500/20 active:scale-95 transition"
@@ -125,14 +116,6 @@ export default function Navbar({ onOpenLetTalk }) {
             className="block px-3 py-2 text-base font-semibold text-gray-300 hover:text-white rounded-md hover:bg-white/5"
           >
             Contact
-          </Link>
-          <Link
-            href="/admin"
-            onClick={() => setMobileMenuOpen(false)}
-            className="flex items-center gap-2 px-3 py-2 text-sm text-purple-300 bg-purple-900/20 rounded-md"
-          >
-            <ShieldAlert className="w-4 h-4" />
-            <span>Admin Portal</span>
           </Link>
         </div>
       )}
