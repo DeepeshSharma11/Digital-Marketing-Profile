@@ -5,6 +5,7 @@
 - **Client**: Aniket Pal - Social Media Manager & Content Creator (Bareilly, UP)
 - **Architect & Developer**: Deepesh Sharma (CTO & Co-Founder, Focitech.in)
 - **Reference Layout**: `Layout.jpeg`
+- **Repository**: `https://github.com/DeepeshSharma11/Digital-Marketing-Profile.git`
 - **Tech Stack**:
   - Frontend: Next.js 14 (App Router), React 18, Tailwind CSS, Lucide React
   - Backend/DB: Supabase (PostgreSQL, Realtime, Auth) with local offline fallback
@@ -25,4 +26,4 @@
 10. Admin CMS (`/admin`) for leads (WhatsApp & Email direct triggers), content, and Cloudinary media
 
 ## Status Log
-- 2026-09-01: Added `LICENSE` with anti-tamper attribution clause and embedded developer signature (`src/lib/branding.js` & `Footer.jsx`) for Deepesh Sharma (CTO & Co-Founder, Focitech.in).
+- 2026-09-01: Replaced placeholder images with `Aniket image.jpeg` (`/aniket.jpeg`) across About Me and Hero creator setup.

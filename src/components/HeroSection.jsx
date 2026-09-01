@@ -122,7 +122,7 @@ export default function HeroSection({ onOpenLetTalk }) {
               {/* Creator Image */}
               <div className="relative h-72 sm:h-80 w-full rounded-2xl overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop"
+                  src="/aniket.jpeg"
                   alt="Aniket Pal - Social Media Creator"
                   className="w-full h-full object-cover object-top"
                 />

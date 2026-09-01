@@ -16,7 +16,7 @@ export const INITIAL_SITE_DATA = {
       thumbsUp: "25K",
       followers: "50K"
     },
-    heroImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop"
+    heroImage: "/aniket.jpeg"
   },
   services: [
     {
@@ -98,7 +98,7 @@ export const INITIAL_SITE_DATA = {
     location: "Bareilly, Uttar Pradesh",
     phone: "6396016347",
     email: "aniketpal731051@gmail.com",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop"
+    avatar: "/aniket.jpeg"
   },
   stats: [
     { id: "st-1", label: "Happy Clients", value: "50+", icon: "Users" },
