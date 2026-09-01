@@ -5,7 +5,7 @@ import { ArrowRight, Instagram, Youtube, Facebook, Heart, ThumbsUp, Users, Spark
 
 export default function HeroSection({ onOpenLetTalk }) {
   return (
-    <section id="home" className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-hero-gradient">
+    <section id="home" className="relative pt-24 pb-16 md:pt-28 md:pb-24 overflow-hidden bg-hero-gradient">
       {/* Background Soft Atmospheric Blobs */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-amber-400/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute top-1/3 right-10 w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-[120px] pointer-events-none" />

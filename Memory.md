@@ -16,7 +16,7 @@
   - Deployment: Docker (Multi-stage standalone), Docker Compose, and Vercel
 
 ## Key Sections (Layout.jpeg & Custom Extensions)
-1. Header & Navigation (Logo, Nav Links, "Let's Talk" CTA modal in frosted white glass)
+1. Header & Navigation (Compact sleek `h-14` navbar with refined smaller typography)
 2. Hero Section (Headline, Gradient accent, Dual CTAs, Social buttons, Floating Badge, Camera/Editor setup with live stats 10K/25K/50K)
 3. Live Brand Achievement Marquee (Infinite ticker with real deliverables)
 4. Services (Instagram, YouTube, Facebook, Video Shoot & Editing, Reels & Content Creation in frosted glass cards)
@@ -34,4 +34,4 @@
 16. Admin CMS (Secret URL: `/admin12300`) for leads (WhatsApp & Email direct triggers), content, and Cloudinary media
 
 ## Status Log
-- 2026-09-01: Updated all developer attribution signatures, footer badges, LICENSE, and package metadata with direct profile URL `https://focitech.in/deepesh-sharma`.
+- 2026-09-01: Reduced navbar height to compact `h-14` (56px) and styled nav links to sleek, refined `text-xs font-semibold` with matching button dimensions.
