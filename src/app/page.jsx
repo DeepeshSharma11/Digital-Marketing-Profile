@@ -27,7 +27,7 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen bg-[#F8FAFC] text-slate-900 selection:bg-amber-400 selection:text-black relative">
-      {/* GPU Accelerated Fixed Background Layer */}
+      {/* Fixed Background Layer */}
       <div className="bg-mesh-canvas" />
 
       {/* Sticky Frosted White Navigation */}
@@ -39,60 +39,38 @@ export default function HomePage() {
       {/* Live Brand Achievement Marquee */}
       <LiveMarquee />
 
-      {/* 5-Card Frosted Glass Services */}
-      <div className="section-smooth">
-        <ServicesSection onOpenLetTalk={handleOpenModal} />
-      </div>
+      {/* 5-Card Services */}
+      <ServicesSection onOpenLetTalk={handleOpenModal} />
 
       {/* Real Client Transformations Before & After Gallery */}
-      <div className="section-smooth">
-        <BeforeAfterGallery onOpenLetTalk={handleOpenModal} />
-      </div>
+      <BeforeAfterGallery onOpenLetTalk={handleOpenModal} />
 
       {/* Interactive Growth / ROI Calculator */}
-      <div className="section-smooth">
-        <GrowthCalculator onOpenLetTalk={handleOpenModal} />
-      </div>
+      <GrowthCalculator onOpenLetTalk={handleOpenModal} />
 
       {/* Before vs After Profile Transformation Showcase */}
-      <div className="section-smooth">
-        <BeforeAfterRevamp onOpenLetTalk={handleOpenModal} />
-      </div>
+      <BeforeAfterRevamp onOpenLetTalk={handleOpenModal} />
 
-      {/* About Me / Who Am I? */}
-      <div className="section-smooth">
-        <AboutSection onOpenLetTalk={handleOpenModal} />
-      </div>
+      {/* About Me */}
+      <AboutSection onOpenLetTalk={handleOpenModal} />
 
       {/* Metric Stats */}
-      <div className="section-smooth">
-        <StatsSection />
-      </div>
+      <StatsSection />
 
       {/* 4-Step Working Process */}
-      <div className="section-smooth">
-        <ProcessSection />
-      </div>
+      <ProcessSection />
 
       {/* Featured Case Studies & Work */}
-      <div className="section-smooth">
-        <PortfolioSection onOpenLetTalk={handleOpenModal} />
-      </div>
+      <PortfolioSection onOpenLetTalk={handleOpenModal} />
 
       {/* Client Testimonials */}
-      <div className="section-smooth">
-        <TestimonialsSection />
-      </div>
+      <TestimonialsSection />
 
       {/* Frequently Asked Questions */}
-      <div className="section-smooth">
-        <FaqSection />
-      </div>
+      <FaqSection />
 
       {/* Contact & CTA Banner */}
-      <div className="section-smooth">
-        <ContactSection onOpenLetTalk={handleOpenModal} />
-      </div>
+      <ContactSection onOpenLetTalk={handleOpenModal} />
 
       {/* Frosted Footer with Developer Signature */}
       <Footer />

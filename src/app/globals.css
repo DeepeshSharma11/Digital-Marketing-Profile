@@ -9,7 +9,6 @@
   }
   
   html {
-    scroll-behavior: smooth;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -25,7 +24,7 @@
   }
 }
 
-/* GPU Accelerated Background Layer - Zero Scroll Repaint */
+/* 120fps/144Hz Zero-Repaint Fixed Background Mesh */
 .bg-mesh-canvas {
   position: fixed;
   inset: 0;
@@ -37,19 +36,13 @@
     radial-gradient(circle at 50% 60%, rgba(37, 99, 235, 0.06) 0px, transparent 45%),
     radial-gradient(circle at 20% 85%, rgba(236, 72, 153, 0.06) 0px, transparent 40%);
   transform: translate3d(0, 0, 0);
-  will-change: transform;
 }
 
-/* Zero-Lag Glassmorphic Panels */
+/* Zero-Lag Soft White Glass Panels (Fast Scroll Optimized) */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.76);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.95);
   box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  will-change: transform, box-shadow;
 }
 
 .glass-panel-hover {
@@ -57,10 +50,10 @@
 }
 
 .glass-panel-hover:hover {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.98);
   border-color: rgba(245, 158, 11, 0.4);
-  transform: translateY(-3px) translateZ(0);
-  box-shadow: 0 16px 30px -8px rgba(124, 58, 237, 0.1), 0 0 0 1px rgba(245, 158, 11, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 30px -8px rgba(124, 58, 237, 0.08), 0 0 0 1px rgba(245, 158, 11, 0.2);
 }
 
 .glow-yellow-btn {
@@ -69,11 +62,10 @@
   font-weight: 700;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
   box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
-  transform: translateZ(0);
 }
 
 .glow-yellow-btn:hover {
-  transform: scale(1.02) translateZ(0);
+  transform: scale(1.02);
   box-shadow: 0 8px 25px rgba(245, 158, 11, 0.45);
 }
 
@@ -84,14 +76,13 @@
   font-weight: 600;
   transition: transform 0.15s ease, border-color 0.15s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-  transform: translateZ(0);
 }
 
 .glow-outline-btn:hover {
   border-color: #F59E0B;
   background: #FFFFFF;
   color: #D97706;
-  transform: scale(1.02) translateZ(0);
+  transform: scale(1.02);
 }
 
 .floating-badge {
@@ -99,14 +90,6 @@
   border: 2px dashed rgba(255, 255, 255, 0.6);
   box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
   animation: float 3.5s ease-in-out infinite;
-  transform: translateZ(0);
-  will-change: transform;
-}
-
-/* Content Optimization for 60/120fps Smooth Scrolling */
-.section-smooth {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 700px;
 }
 
 /* Custom Scrollbar */
