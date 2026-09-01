@@ -32,7 +32,7 @@
 14. Lead Capture / Contact Form + CTA Banner (Supabase `inquiries` table)
 15. Footer with branding, social links & developer attribution linking directly to `https://focitech.in/deepesh-sharma`
 16. Quick Direct WhatsApp Floating Button
-17. Admin CMS (Secret URL: `/admin12300`) for leads, Before-After Proofs CRUD management, and Cloudinary media
+17. Admin CMS (Secret URL: `/admin12300` in matching Soft White Glassmorphic UI) for leads, Before-After Proofs CRUD management, and Cloudinary media
 
 ## Status Log
-- 2026-09-01: Enabled full vertical scrolling and proper image scaling inside the lightbox modal with `overflow-y-auto` on the overlay, `max-h-[55vh]` scrollable container, and natural image fitting.
+- 2026-09-01: Redesigned the entire `/admin12300` Admin Dashboard and Login portal with the matching luxury **Soft White Glassmorphism** theme, clean white cards, golden accents, and high-contrast typography.

@@ -23,7 +23,10 @@ import {
   Edit3,
   TrendingUp,
   Instagram,
-  Save
+  Save,
+  Sparkles,
+  LogOut,
+  RefreshCw
 } from 'lucide-react';
 import { getInquiries, updateInquiryStatus, isSupabaseConfigured } from '../../lib/supabaseClient';
 import { uploadToCloudinary } from '../../lib/cloudinary';
@@ -168,7 +171,6 @@ export default function AdminPage() {
       growth: '+1,500 Followers',
       image: ''
     });
-    alert('Transformation Proof Saved Successfully!');
   };
 
   const handleEditProof = (item) => {
@@ -196,42 +198,45 @@ export default function AdminPage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // Login View in Soft White Glass
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#080612] flex items-center justify-center p-4">
-        <div className="w-full max-w-md bg-[#100c24] border border-purple-500/30 rounded-3xl p-8 shadow-2xl space-y-6">
+      <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex items-center justify-center p-4 relative">
+        <div className="bg-mesh-canvas" />
+
+        <div className="w-full max-w-md glass-panel p-8 sm:p-10 rounded-3xl shadow-2xl border border-white/90 space-y-6 relative z-10 animate-fadeIn">
           <div className="text-center space-y-2">
-            <div className="w-16 h-16 rounded-2xl bg-amber-400/20 text-amber-400 border border-amber-400/30 flex items-center justify-center mx-auto">
+            <div className="w-16 h-16 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center mx-auto shadow-sm">
               <Lock className="w-8 h-8" />
             </div>
-            <h2 className="text-2xl font-black text-white">Aniket Pal Admin Portal</h2>
-            <p className="text-xs text-gray-400">Enter Admin Passcode to manage leads & media</p>
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight">Aniket Pal Admin Portal</h2>
+            <p className="text-xs text-slate-500 font-medium">Enter secure passkey to manage leads & proofs</p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-gray-300 mb-1">Passcode</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">Admin Passcode</label>
               <input
                 type="password"
-                placeholder="Enter admin passcode"
+                placeholder="Enter secret passcode"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400"
+                className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 text-sm font-medium shadow-sm transition"
               />
-              {authError && <p className="text-xs text-rose-400 mt-1">{authError}</p>}
+              {authError && <p className="text-xs text-rose-600 font-bold mt-1.5">{authError}</p>}
             </div>
 
             <button
               type="submit"
-              className="w-full glow-yellow-btn py-3.5 rounded-xl font-bold transition cursor-pointer"
+              className="w-full glow-yellow-btn py-3.5 rounded-xl font-bold transition cursor-pointer text-sm shadow-md shadow-amber-500/20"
             >
               Unlock Dashboard
             </button>
           </form>
 
-          <div className="text-center">
-            <Link href="/" className="text-xs text-gray-400 hover:text-white inline-flex items-center gap-1">
-              <ArrowLeft className="w-3.5 h-3.5" /> Back to Website
+          <div className="text-center pt-2">
+            <Link href="/" className="text-xs font-bold text-slate-500 hover:text-amber-600 inline-flex items-center gap-1.5 transition">
+              <ArrowLeft className="w-3.5 h-3.5" /> Back to Main Website
             </Link>
           </div>
         </div>
@@ -239,148 +244,164 @@ export default function AdminPage() {
     );
   }
 
+  // Dashboard in Soft White Glass
   return (
-    <div className="min-h-screen bg-[#080612] text-white">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 relative">
+      <div className="bg-mesh-canvas" />
+
       {/* Top Header */}
-      <header className="bg-[#0f0b24] border-b border-white/10 px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+      <header className="bg-white/80 backdrop-blur-xl border-b border-slate-200/80 px-6 py-3.5 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-30 shadow-sm">
         <div className="flex items-center gap-4">
-          <Link href="/" className="text-xs text-gray-400 hover:text-white flex items-center gap-1">
+          <Link href="/" className="text-xs font-bold text-slate-600 hover:text-amber-600 flex items-center gap-1 transition">
             <ArrowLeft className="w-4 h-4" /> Live Site
           </Link>
-          <div className="h-4 w-[1px] bg-white/20" />
-          <h1 className="text-lg font-bold text-white flex items-center gap-2">
-            <ShieldCheck className="w-5 h-5 text-amber-400" />
+          <div className="h-4 w-[1px] bg-slate-200" />
+          <h1 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
+            <ShieldCheck className="w-5 h-5 text-amber-500" />
             Aniket Pal Control Center
           </h1>
         </div>
 
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1.5 text-xs bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
-            <Database className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Supabase: {isSupabaseConfigured ? 'Live Connected' : 'Local Fallback'}</span>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 text-xs bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-full border border-emerald-200 font-bold">
+            <Database className="w-3.5 h-3.5 text-emerald-600" />
+            <span>Supabase: {isSupabaseConfigured ? 'Live Connected' : 'Local Storage'}</span>
           </div>
           <button
             onClick={handleLogout}
-            className="text-xs text-rose-400 hover:text-rose-300 font-semibold px-3 py-1.5 rounded-lg border border-rose-500/30"
+            className="text-xs text-rose-600 hover:text-rose-700 font-bold px-3 py-1.5 rounded-lg border border-rose-200 bg-rose-50 hover:bg-rose-100 transition flex items-center gap-1"
           >
+            <LogOut className="w-3.5 h-3.5" />
             Logout
           </button>
         </div>
       </header>
 
       {/* Main Admin Area */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10 space-y-8">
         
         {/* Navigation Tabs */}
-        <div className="flex flex-wrap gap-3 mb-8 border-b border-white/10 pb-4">
+        <div className="flex flex-wrap gap-2 border-b border-slate-200/80 pb-4">
           <button
             onClick={() => setActiveTab('inquiries')}
-            className={`px-5 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition ${
-              activeTab === 'inquiries' ? 'bg-amber-400 text-black font-bold' : 'bg-white/5 text-gray-300 hover:text-white'
+            className={`px-5 py-2 rounded-xl text-xs font-extrabold flex items-center gap-2 transition ${
+              activeTab === 'inquiries' 
+                ? 'bg-amber-500 text-white shadow-md shadow-amber-500/25' 
+                : 'bg-white/80 text-slate-600 hover:text-slate-900 border border-slate-200'
             }`}
           >
             <MessageSquare className="w-4 h-4" />
-            Inquiries & Leads ({inquiries.length})
+            <span>Inquiries & Leads ({inquiries.length})</span>
           </button>
 
           <button
             onClick={() => setActiveTab('gallery')}
-            className={`px-5 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition ${
-              activeTab === 'gallery' ? 'bg-amber-400 text-black font-bold' : 'bg-white/5 text-gray-300 hover:text-white'
+            className={`px-5 py-2 rounded-xl text-xs font-extrabold flex items-center gap-2 transition ${
+              activeTab === 'gallery' 
+                ? 'bg-amber-500 text-white shadow-md shadow-amber-500/25' 
+                : 'bg-white/80 text-slate-600 hover:text-slate-900 border border-slate-200'
             }`}
           >
             <ImageIcon className="w-4 h-4" />
-            Before-After Proofs ({galleryList.length})
+            <span>Before-After Proofs ({galleryList.length})</span>
           </button>
 
           <button
             onClick={() => setActiveTab('media')}
-            className={`px-5 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition ${
-              activeTab === 'media' ? 'bg-amber-400 text-black font-bold' : 'bg-white/5 text-gray-300 hover:text-white'
+            className={`px-5 py-2 rounded-xl text-xs font-extrabold flex items-center gap-2 transition ${
+              activeTab === 'media' 
+                ? 'bg-amber-500 text-white shadow-md shadow-amber-500/25' 
+                : 'bg-white/80 text-slate-600 hover:text-slate-900 border border-slate-200'
             }`}
           >
             <UploadCloud className="w-4 h-4" />
-            Cloudinary Media Hub
+            <span>Cloudinary Media Hub</span>
           </button>
 
           <button
             onClick={() => setActiveTab('content')}
-            className={`px-5 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition ${
-              activeTab === 'content' ? 'bg-amber-400 text-black font-bold' : 'bg-white/5 text-gray-300 hover:text-white'
+            className={`px-5 py-2 rounded-xl text-xs font-extrabold flex items-center gap-2 transition ${
+              activeTab === 'content' 
+                ? 'bg-amber-500 text-white shadow-md shadow-amber-500/25' 
+                : 'bg-white/80 text-slate-600 hover:text-slate-900 border border-slate-200'
             }`}
           >
             <Settings className="w-4 h-4" />
-            Site Configuration
+            <span>Site Configuration</span>
           </button>
         </div>
 
         {/* Tab 1: Inquiries / Leads */}
         {activeTab === 'inquiries' && (
           <div className="space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="glass-panel p-5 rounded-2xl border border-white/10">
-                <p className="text-xs text-gray-400 font-medium">Total Inquiries</p>
-                <p className="text-2xl font-black text-white mt-1">{inquiries.length}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              <div className="glass-panel p-6 rounded-2xl border border-white/90">
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Inquiries</p>
+                <p className="text-3xl font-black text-slate-900 mt-1">{inquiries.length}</p>
               </div>
-              <div className="glass-panel p-5 rounded-2xl border border-white/10">
-                <p className="text-xs text-gray-400 font-medium">New Leads</p>
-                <p className="text-2xl font-black text-amber-400 mt-1">
+              <div className="glass-panel p-6 rounded-2xl border border-white/90">
+                <p className="text-xs font-bold text-amber-700 uppercase tracking-wider">New Leads</p>
+                <p className="text-3xl font-black text-amber-600 mt-1">
                   {inquiries.filter(i => i.status === 'new').length}
                 </p>
               </div>
-              <div className="glass-panel p-5 rounded-2xl border border-white/10">
-                <p className="text-xs text-gray-400 font-medium">Contacted / Converted</p>
-                <p className="text-2xl font-black text-emerald-400 mt-1">
+              <div className="glass-panel p-6 rounded-2xl border border-white/90">
+                <p className="text-xs font-bold text-emerald-700 uppercase tracking-wider">Converted Clients</p>
+                <p className="text-3xl font-black text-emerald-600 mt-1">
                   {inquiries.filter(i => i.status === 'contacted' || i.status === 'converted').length}
                 </p>
               </div>
             </div>
 
-            <div className="glass-panel rounded-2xl border border-white/10 overflow-hidden">
-              <div className="p-5 border-b border-white/10 flex items-center justify-between">
-                <h3 className="font-bold text-white">Client Inquiry Messages</h3>
+            <div className="glass-panel rounded-3xl border border-white/90 overflow-hidden shadow-sm">
+              <div className="p-6 border-b border-slate-200/80 flex items-center justify-between">
+                <div>
+                  <h3 className="font-extrabold text-slate-900 text-lg">Client Inquiry Messages</h3>
+                  <p className="text-xs text-slate-500 font-medium">Direct leads captured via website form</p>
+                </div>
                 <button
                   onClick={loadInquiries}
-                  className="text-xs text-amber-400 hover:underline"
+                  className="text-xs font-bold text-amber-600 hover:text-amber-700 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 transition"
                 >
-                  Refresh Leads
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  Refresh
                 </button>
               </div>
 
               {inquiries.length === 0 ? (
-                <div className="p-12 text-center text-gray-400">
-                  <MessageSquare className="w-12 h-12 mx-auto text-gray-600 mb-3" />
-                  <p>No client inquiries recorded yet.</p>
+                <div className="p-14 text-center text-slate-400 space-y-2">
+                  <MessageSquare className="w-12 h-12 mx-auto text-slate-300" />
+                  <p className="text-sm font-semibold">No client inquiries recorded yet.</p>
                 </div>
               ) : (
-                <div className="divide-y divide-white/5">
+                <div className="divide-y divide-slate-100">
                   {inquiries.map((inq) => (
-                    <div key={inq.id} className="p-6 hover:bg-white/[0.02] transition space-y-3">
+                    <div key={inq.id} className="p-6 hover:bg-slate-50/70 transition space-y-3">
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <div className="flex items-center gap-3">
-                          <span className="font-bold text-white text-base">{inq.name}</span>
-                          <span className="text-xs px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                          <span className="font-extrabold text-slate-900 text-base">{inq.name}</span>
+                          <span className="text-xs px-3 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200 font-bold">
                             {inq.service}
                           </span>
                         </div>
-                        <span className="text-xs text-gray-400 flex items-center gap-1">
+                        <span className="text-xs text-slate-400 font-medium flex items-center gap-1">
                           <Clock className="w-3.5 h-3.5" />
                           {new Date(inq.created_at).toLocaleDateString()}
                         </span>
                       </div>
 
-                      <p className="text-sm text-gray-300 bg-black/30 p-3.5 rounded-xl border border-white/5">
+                      <p className="text-sm text-slate-700 bg-white p-4 rounded-xl border border-slate-200 shadow-sm font-medium">
                         "{inq.message || 'No additional message provided'}"
                       </p>
 
                       <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
-                        <div className="flex items-center gap-4 text-xs text-gray-400">
+                        <div className="flex items-center gap-4 text-xs font-bold">
                           {inq.phone && (
                             <a
                               href={`https://wa.me/91${inq.phone.replace(/[^0-9]/g, '')}`}
                               target="_blank"
                               rel="noreferrer"
-                              className="text-emerald-400 hover:underline flex items-center gap-1 font-semibold"
+                              className="text-emerald-700 hover:text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200 flex items-center gap-1.5 transition"
                             >
                               <Phone className="w-3.5 h-3.5" /> WhatsApp: {inq.phone}
                             </a>
@@ -388,7 +409,7 @@ export default function AdminPage() {
                           {inq.email && (
                             <a
                               href={`mailto:${inq.email}`}
-                              className="text-blue-400 hover:underline flex items-center gap-1"
+                              className="text-blue-700 hover:text-blue-800 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200 flex items-center gap-1.5 transition"
                             >
                               <Mail className="w-3.5 h-3.5" /> {inq.email}
                             </a>
@@ -396,10 +417,11 @@ export default function AdminPage() {
                         </div>
 
                         <div className="flex items-center gap-2">
+                          <label className="text-xs text-slate-500 font-bold">Status:</label>
                           <select
                             value={inq.status || 'new'}
                             onChange={(e) => handleStatusChange(inq.id, e.target.value)}
-                            className="text-xs bg-black/60 border border-white/20 rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:border-amber-400"
+                            className="text-xs bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-slate-800 font-bold focus:outline-none focus:border-amber-500 shadow-sm"
                           >
                             <option value="new">New</option>
                             <option value="contacted">Contacted</option>
@@ -421,15 +443,15 @@ export default function AdminPage() {
           <div className="space-y-8">
             
             {/* Create / Edit Form */}
-            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6">
-              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/90 space-y-6 shadow-sm">
+              <div className="flex items-center justify-between border-b border-slate-200/80 pb-4">
                 <div>
-                  <h3 className="text-xl font-black text-white flex items-center gap-2">
-                    <Plus className="w-5 h-5 text-amber-400" />
+                  <h3 className="text-xl font-black text-slate-900 flex items-center gap-2">
+                    <Plus className="w-5 h-5 text-amber-500" />
                     {editingProofId ? 'Edit Transformation Card' : 'Add New Transformation Proof'}
                   </h3>
-                  <p className="text-xs text-gray-400 mt-0.5">
-                    Upload before/after proof screenshots and configure client statistics
+                  <p className="text-xs text-slate-500 font-medium mt-0.5">
+                    Upload screenshot proof and configure follower growth figures
                   </p>
                 </div>
                 {editingProofId && (
@@ -438,9 +460,9 @@ export default function AdminPage() {
                       setEditingProofId(null);
                       setNewProof({ name: '', handle: '', category: 'Lifestyle & Business', growth: '+1,500 Followers', image: '' });
                     }}
-                    className="text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-lg border border-white/20"
+                    className="text-xs text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-lg border border-slate-200 bg-white font-bold shadow-sm"
                   >
-                    Cancel Editing
+                    Cancel Edit
                   </button>
                 )}
               </div>
@@ -448,66 +470,66 @@ export default function AdminPage() {
               <form onSubmit={handleSaveProof} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-gray-300 mb-1">Client / Brand Name *</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Client / Brand Name *</label>
                     <input
                       required
                       type="text"
-                      placeholder="e.g. Rahul Verma"
+                      placeholder="e.g. Jitendra Patel"
                       value={newProof.name}
                       onChange={(e) => setNewProof({ ...newProof, name: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 text-sm"
+                      className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 text-sm font-medium shadow-sm"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-gray-300 mb-1">Instagram Handle *</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Instagram Handle *</label>
                     <input
                       required
                       type="text"
-                      placeholder="e.g. @rahul_fitness"
+                      placeholder="e.g. @jitendrapatel0008_"
                       value={newProof.handle}
                       onChange={(e) => setNewProof({ ...newProof, handle: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 text-sm"
+                      className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 text-sm font-medium shadow-sm"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-gray-300 mb-1">Category / Niche</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Category / Niche</label>
                     <input
                       type="text"
                       placeholder="e.g. Fitness & Gym, Beauty & Salon, Politician"
                       value={newProof.category}
                       onChange={(e) => setNewProof({ ...newProof, category: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 text-sm"
+                      className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 text-sm font-medium shadow-sm"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-gray-300 mb-1">Growth Badge *</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Growth Badge *</label>
                     <input
                       required
                       type="text"
-                      placeholder="e.g. +2,400 Followers"
+                      placeholder="e.g. +2,281 Followers"
                       value={newProof.growth}
                       onChange={(e) => setNewProof({ ...newProof, growth: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 text-sm"
+                      className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 text-sm font-medium shadow-sm"
                     />
                   </div>
                 </div>
 
                 {/* Image Upload / URL */}
                 <div>
-                  <label className="block text-xs font-bold text-gray-300 mb-1">Before & After Screenshot *</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Before & After Screenshot *</label>
                   <div className="flex flex-col sm:flex-row gap-3">
                     <input
                       type="text"
-                      placeholder="Enter Image URL or upload below (e.g. /gallery/jitendra.webp)"
+                      placeholder="Image URL (e.g. /gallery/jitendra.webp or Cloudinary URL)"
                       value={newProof.image}
                       onChange={(e) => setNewProof({ ...newProof, image: e.target.value })}
-                      className="flex-1 px-4 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 text-sm"
+                      className="flex-1 px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 text-sm font-medium shadow-sm"
                     />
                     <label className="glow-outline-btn px-4 py-2 rounded-xl text-xs flex items-center justify-center gap-2 cursor-pointer shrink-0">
-                      <UploadCloud className="w-4 h-4" />
+                      <UploadCloud className="w-4 h-4 text-amber-600" />
                       <span>{proofUploading ? 'Uploading...' : 'Upload Image'}</span>
                       <input type="file" accept="image/*" onChange={handleProofImageUpload} className="hidden" />
                     </label>
@@ -515,29 +537,32 @@ export default function AdminPage() {
                 </div>
 
                 {newProof.image && (
-                  <div className="mt-2 flex items-center gap-3 p-3 bg-black/30 rounded-xl border border-white/10 w-fit">
-                    <img src={newProof.image} alt="Preview" className="h-16 w-auto object-contain rounded-lg" />
-                    <span className="text-xs text-emerald-400 font-semibold">Image Ready</span>
+                  <div className="mt-2 flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200 w-fit">
+                    <img src={newProof.image} alt="Preview" className="h-16 w-auto object-contain rounded-lg border border-slate-200" />
+                    <span className="text-xs text-emerald-700 font-bold">Image Attached</span>
                   </div>
                 )}
 
                 <button
                   type="submit"
-                  className="glow-yellow-btn px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2"
+                  className="glow-yellow-btn px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-sm"
                 >
                   <Save className="w-4 h-4" />
-                  <span>{editingProofId ? 'Update Transformation Card' : 'Save & Publish to Gallery'}</span>
+                  <span>{editingProofId ? 'Update Card' : 'Save & Publish to Gallery'}</span>
                 </button>
               </form>
             </div>
 
             {/* List of Live Proofs */}
-            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6">
-              <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                <h3 className="text-xl font-black text-white">Live Gallery Proofs ({galleryList.length})</h3>
+            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/90 space-y-6 shadow-sm">
+              <div className="flex items-center justify-between border-b border-slate-200/80 pb-4">
+                <div>
+                  <h3 className="text-xl font-black text-slate-900">Live Gallery Proofs ({galleryList.length})</h3>
+                  <p className="text-xs text-slate-500 font-medium">Currently visible on the public website</p>
+                </div>
                 <button
                   onClick={handleResetGallery}
-                  className="text-xs text-gray-400 hover:text-amber-400 transition"
+                  className="text-xs font-bold text-slate-500 hover:text-amber-600 transition"
                 >
                   Reset to Defaults
                 </button>
@@ -547,31 +572,31 @@ export default function AdminPage() {
                 {galleryList.map((item) => (
                   <div
                     key={item.id}
-                    className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3 flex flex-col justify-between"
+                    className="p-5 rounded-2xl bg-white border border-slate-200 space-y-3 flex flex-col justify-between shadow-sm hover:shadow-md transition"
                   >
-                    <div className="relative h-48 w-full bg-black/40 rounded-xl overflow-hidden flex items-center justify-center">
+                    <div className="relative h-48 w-full bg-slate-50 rounded-xl overflow-hidden flex items-center justify-center border border-slate-100">
                       <img src={item.image} alt={item.name} className="h-full w-auto object-contain" />
-                      <div className="absolute top-2 right-2 bg-emerald-500/90 text-white font-black text-[11px] px-2 py-0.5 rounded-md">
+                      <div className="absolute top-2 right-2 bg-emerald-600 text-white font-black text-[11px] px-2.5 py-1 rounded-md shadow-sm">
                         {item.growth}
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between pt-1">
                       <div>
-                        <h4 className="font-extrabold text-white text-base">{item.name}</h4>
-                        <p className="text-xs text-gray-400">{item.handle} • {item.category}</p>
+                        <h4 className="font-extrabold text-slate-900 text-base">{item.name}</h4>
+                        <p className="text-xs text-slate-500 font-medium">{item.handle} • {item.category}</p>
                       </div>
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => handleEditProof(item)}
-                          className="p-2 rounded-lg bg-white/10 hover:bg-amber-400 hover:text-black transition text-gray-300"
+                          className="p-2 rounded-lg bg-slate-100 hover:bg-amber-500 hover:text-white transition text-slate-700"
                           title="Edit"
                         >
                           <Edit3 className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleDeleteProof(item.id)}
-                          className="p-2 rounded-lg bg-white/10 hover:bg-rose-500 hover:text-white transition text-gray-300"
+                          className="p-2 rounded-lg bg-slate-100 hover:bg-rose-600 hover:text-white transition text-slate-700"
                           title="Delete"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -589,38 +614,38 @@ export default function AdminPage() {
         {/* Tab 3: Cloudinary Media Hub */}
         {activeTab === 'media' && (
           <div className="space-y-6">
-            <div className="glass-panel p-8 rounded-3xl border border-white/10 space-y-6">
+            <div className="glass-panel p-8 rounded-3xl border border-white/90 space-y-6 shadow-sm">
               <div>
-                <h3 className="text-xl font-black text-white">Upload Assets to Cloudinary CDN</h3>
-                <p className="text-xs text-gray-400 mt-1">Upload client photos, case studies, or portfolio images directly to Cloudinary.</p>
+                <h3 className="text-xl font-black text-slate-900">Upload Assets to Cloudinary CDN</h3>
+                <p className="text-xs text-slate-500 font-medium mt-1">Upload client photos, case studies, or portfolio images directly to Cloudinary.</p>
               </div>
 
-              <div className="border-2 border-dashed border-white/20 rounded-2xl p-8 text-center space-y-4 hover:border-amber-400/50 transition">
-                <UploadCloud className="w-12 h-12 mx-auto text-amber-400" />
+              <div className="border-2 border-dashed border-slate-300 rounded-2xl p-10 text-center space-y-4 hover:border-amber-500 transition bg-slate-50/50">
+                <UploadCloud className="w-12 h-12 mx-auto text-amber-500" />
                 <div>
-                  <label className="glow-yellow-btn px-6 py-3 rounded-xl text-sm font-bold cursor-pointer inline-flex items-center gap-2">
+                  <label className="glow-yellow-btn px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider cursor-pointer inline-flex items-center gap-2">
                     <span>{uploading ? 'Uploading to Cloudinary...' : 'Choose Media File'}</span>
                     <input type="file" onChange={handleFileUpload} className="hidden" />
                   </label>
                 </div>
-                <p className="text-xs text-gray-500">Supports JPG, PNG, WEBP, MP4 (Max 25MB)</p>
+                <p className="text-xs text-slate-400 font-medium">Supports JPG, PNG, WEBP, MP4 (Max 25MB)</p>
               </div>
 
               {uploadedUrl && (
-                <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/40 space-y-2">
-                  <p className="text-xs text-emerald-400 font-bold flex items-center gap-1">
-                    <CheckCircle className="w-4 h-4" /> Media Uploaded Successfully:
+                <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 space-y-2">
+                  <p className="text-xs text-emerald-800 font-bold flex items-center gap-1">
+                    <CheckCircle className="w-4 h-4 text-emerald-600" /> Media Uploaded Successfully:
                   </p>
                   <div className="flex items-center gap-2">
                     <input
                       type="text"
                       readOnly
                       value={uploadedUrl}
-                      className="flex-1 bg-black/60 border border-white/10 text-xs px-3 py-2 rounded-lg text-gray-300 font-mono"
+                      className="flex-1 bg-white border border-slate-200 text-xs px-3 py-2 rounded-lg text-slate-700 font-mono shadow-sm"
                     />
                     <button
                       onClick={() => copyToClipboard(uploadedUrl)}
-                      className="glow-yellow-btn px-3 py-2 rounded-lg text-xs font-bold"
+                      className="glow-yellow-btn px-4 py-2 rounded-lg text-xs font-bold"
                     >
                       {copied ? 'Copied!' : 'Copy URL'}
                     </button>
@@ -633,24 +658,27 @@ export default function AdminPage() {
 
         {/* Tab 4: Site Configuration */}
         {activeTab === 'content' && (
-          <div className="glass-panel p-8 rounded-3xl border border-white/10 space-y-6">
-            <h3 className="text-xl font-black text-white">Live Site Information</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-gray-300">
-              <div className="space-y-1 p-4 rounded-xl bg-white/5 border border-white/10">
-                <span className="text-gray-400 font-semibold">Primary Phone</span>
-                <p className="font-bold text-white text-sm">{INITIAL_SITE_DATA.about.phone}</p>
+          <div className="glass-panel p-8 rounded-3xl border border-white/90 space-y-6 shadow-sm">
+            <div>
+              <h3 className="text-xl font-black text-slate-900">Live Site Information</h3>
+              <p className="text-xs text-slate-500 font-medium">Default metadata & configuration</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-600">
+              <div className="space-y-1 p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+                <span className="text-slate-400 font-bold uppercase text-[10px]">Primary Phone</span>
+                <p className="font-extrabold text-slate-900 text-sm">{INITIAL_SITE_DATA.about.phone}</p>
               </div>
-              <div className="space-y-1 p-4 rounded-xl bg-white/5 border border-white/10">
-                <span className="text-gray-400 font-semibold">Official Email</span>
-                <p className="font-bold text-white text-sm">{INITIAL_SITE_DATA.about.email}</p>
+              <div className="space-y-1 p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+                <span className="text-slate-400 font-bold uppercase text-[10px]">Official Email</span>
+                <p className="font-extrabold text-slate-900 text-sm">{INITIAL_SITE_DATA.about.email}</p>
               </div>
-              <div className="space-y-1 p-4 rounded-xl bg-white/5 border border-white/10">
-                <span className="text-gray-400 font-semibold">Location</span>
-                <p className="font-bold text-white text-sm">{INITIAL_SITE_DATA.about.location}</p>
+              <div className="space-y-1 p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+                <span className="text-slate-400 font-bold uppercase text-[10px]">Location</span>
+                <p className="font-extrabold text-slate-900 text-sm">{INITIAL_SITE_DATA.about.location}</p>
               </div>
-              <div className="space-y-1 p-4 rounded-xl bg-white/5 border border-white/10">
-                <span className="text-gray-400 font-semibold">Secret Admin Path</span>
-                <p className="font-bold text-amber-400 text-sm font-mono">/admin12300</p>
+              <div className="space-y-1 p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+                <span className="text-slate-400 font-bold uppercase text-[10px]">Secret Admin Path</span>
+                <p className="font-extrabold text-amber-600 text-sm font-mono">/admin12300</p>
               </div>
             </div>
           </div>
