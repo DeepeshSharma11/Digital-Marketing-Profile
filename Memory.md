@@ -35,4 +35,5 @@
 17. Admin CMS (Secret URL: `/admin12300` in matching Soft White Glassmorphic UI) for leads, Before-After Proofs CRUD management, and Cloudinary media
 
 ## Status Log
-- 2026-09-01: Removed repetitive GPU `backdrop-filter: blur`, layer explosion `will-change`, and `content-visibility` reflow jumps to deliver 120fps/144Hz zero-lag fast scrolling.
+- 2026-09-01: Updated footer UI attribution to "Built by Foci Tech" while preserving complete SEO, AEO, GEO, and JSON-LD structured schema for Deepesh Sharma (CTO & Co-Founder, Focitech.in).
+- 2026-09-01: Pushed commit `88da00d` to `origin/main` optimizing fast-scroll framerates with zero-cost alpha layering and clean layout geometry.

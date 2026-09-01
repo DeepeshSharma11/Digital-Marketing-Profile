@@ -18,7 +18,7 @@ export default function Footer() {
     <footer className="bg-white/60 backdrop-blur-xl border-t border-slate-200/80 pt-16 pb-12 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-200/80">
-          
+
           {/* Brand Info (6 cols) */}
           <div className="md:col-span-6 space-y-4">
             <div>
@@ -112,16 +112,16 @@ export default function Footer() {
             <a
               href={brand.url}
               target="_blank"
-              rel="noreferrer"
+              rel="author external noopener noreferrer"
+              title="Architected & Engineered by Deepesh Sharma (CTO & Co-Founder, Focitech.in)"
               className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 hover:border-purple-300 hover:bg-purple-50 transition group text-slate-600 hover:text-slate-900 shadow-sm"
             >
               <Code2 className="w-3.5 h-3.5 text-purple-600 group-hover:rotate-12 transition duration-300" />
               <span>
-                Architected & Engineered by{' '}
+                Built by{' '}
                 <strong className="text-slate-900 group-hover:text-amber-600 transition font-bold">
-                  {brand.developer}
-                </strong>{' '}
-                <span className="text-purple-600 text-[11px] font-semibold">({brand.role}, {brand.company})</span>
+                  Focitech
+                </strong>
               </span>
             </a>
           </div>
