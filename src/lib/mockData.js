@@ -18,6 +18,40 @@ export const INITIAL_SITE_DATA = {
     },
     heroImage: "/aniket.jpeg"
   },
+  gallery: [
+    {
+      id: "gal-1",
+      name: "Jitendra Patel",
+      handle: "@jitendrapatel0008_",
+      category: "Lifestyle & Business",
+      growth: "+2,281 Followers",
+      image: "/gallery/jitendra.webp"
+    },
+    {
+      id: "gal-2",
+      name: "सुनीता पाल (Sunita Pal)",
+      handle: "@sunitapal_117",
+      category: "Political & Public Figure",
+      growth: "+6,200 Followers",
+      image: "/gallery/sunita.webp"
+    },
+    {
+      id: "gal-3",
+      name: "Suryaprakash Pal",
+      handle: "@suryaprakash.pal.39",
+      category: "Social Worker & Public Profile",
+      growth: "+1,000 Followers",
+      image: "/gallery/suryaprakash.webp"
+    },
+    {
+      id: "gal-4",
+      name: "Aazad (SwiftLines)",
+      handle: "@swiftlines0224",
+      category: "Content Creator (Bareilly)",
+      growth: "+1,819 Followers (From 0)",
+      image: "/gallery/swiftliner.webp"
+    }
+  ],
   services: [
     {
       id: "srv-1",
@@ -185,3 +219,23 @@ export const INITIAL_SITE_DATA = {
     }
   ]
 };
+
+export function getStoredGallery() {
+  if (typeof window === 'undefined') return INITIAL_SITE_DATA.gallery;
+  try {
+    const saved = localStorage.getItem('aniket_gallery_data');
+    return saved ? JSON.parse(saved) : INITIAL_SITE_DATA.gallery;
+  } catch {
+    return INITIAL_SITE_DATA.gallery;
+  }
+}
+
+export function saveStoredGallery(items) {
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem('aniket_gallery_data', JSON.stringify(items));
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}

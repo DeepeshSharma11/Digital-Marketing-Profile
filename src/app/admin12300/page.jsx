@@ -18,11 +18,16 @@ import {
   Database,
   Image as ImageIcon,
   Copy,
-  Plus
+  Plus,
+  Trash2,
+  Edit3,
+  TrendingUp,
+  Instagram,
+  Save
 } from 'lucide-react';
 import { getInquiries, updateInquiryStatus, isSupabaseConfigured } from '../../lib/supabaseClient';
 import { uploadToCloudinary } from '../../lib/cloudinary';
-import { INITIAL_SITE_DATA } from '../../lib/mockData';
+import { INITIAL_SITE_DATA, getStoredGallery, saveStoredGallery } from '../../lib/mockData';
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -35,6 +40,18 @@ export default function AdminPage() {
   const [uploadedUrl, setUploadedUrl] = useState('');
   const [copied, setCopied] = useState(false);
 
+  // Gallery CRUD State
+  const [galleryList, setGalleryList] = useState([]);
+  const [newProof, setNewProof] = useState({
+    name: '',
+    handle: '',
+    category: 'Lifestyle & Business',
+    growth: '+1,500 Followers',
+    image: ''
+  });
+  const [proofUploading, setProofUploading] = useState(false);
+  const [editingProofId, setEditingProofId] = useState(null);
+
   useEffect(() => {
     // Check if session token exists
     if (typeof window !== 'undefined') {
@@ -42,9 +59,14 @@ export default function AdminPage() {
       if (auth === 'true') {
         setIsAuthenticated(true);
         loadInquiries();
+        loadGalleryData();
       }
     }
   }, []);
+
+  const loadGalleryData = () => {
+    setGalleryList(getStoredGallery());
+  };
 
   const loadInquiries = async () => {
     const data = await getInquiries();
@@ -66,6 +88,7 @@ export default function AdminPage() {
         setIsAuthenticated(true);
         sessionStorage.setItem('aniket_admin_auth', 'true');
         loadInquiries();
+        loadGalleryData();
       } else {
         setAuthError(data.error || 'Invalid Admin Passcode.');
       }
@@ -97,6 +120,74 @@ export default function AdminPage() {
     } finally {
       setUploading(false);
     }
+  };
+
+  const handleProofImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setProofUploading(true);
+    try {
+      const res = await uploadToCloudinary(file);
+      const url = res.secure_url || res.url;
+      setNewProof(prev => ({ ...prev, image: url }));
+    } catch (err) {
+      console.error(err);
+      alert('Upload error: ' + err.message);
+    } finally {
+      setProofUploading(false);
+    }
+  };
+
+  const handleSaveProof = (e) => {
+    e.preventDefault();
+    if (!newProof.name || !newProof.image) {
+      alert('Please provide Client Name and Image.');
+      return;
+    }
+
+    let updatedList;
+    if (editingProofId) {
+      updatedList = galleryList.map(item => 
+        item.id === editingProofId ? { ...newProof, id: editingProofId } : item
+      );
+      setEditingProofId(null);
+    } else {
+      const newItem = {
+        ...newProof,
+        id: 'gal-' + Date.now()
+      };
+      updatedList = [newItem, ...galleryList];
+    }
+
+    setGalleryList(updatedList);
+    saveStoredGallery(updatedList);
+    setNewProof({
+      name: '',
+      handle: '',
+      category: 'Lifestyle & Business',
+      growth: '+1,500 Followers',
+      image: ''
+    });
+    alert('Transformation Proof Saved Successfully!');
+  };
+
+  const handleEditProof = (item) => {
+    setEditingProofId(item.id);
+    setNewProof(item);
+    window.scrollTo({ top: 300, behavior: 'smooth' });
+  };
+
+  const handleDeleteProof = (id) => {
+    if (!confirm('Are you sure you want to delete this proof card?')) return;
+    const updated = galleryList.filter(item => item.id !== id);
+    setGalleryList(updated);
+    saveStoredGallery(updated);
+  };
+
+  const handleResetGallery = () => {
+    if (!confirm('Reset gallery to default screenshots?')) return;
+    setGalleryList(INITIAL_SITE_DATA.gallery);
+    saveStoredGallery(INITIAL_SITE_DATA.gallery);
   };
 
   const copyToClipboard = (text) => {
@@ -193,6 +284,16 @@ export default function AdminPage() {
           </button>
 
           <button
+            onClick={() => setActiveTab('gallery')}
+            className={`px-5 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition ${
+              activeTab === 'gallery' ? 'bg-amber-400 text-black font-bold' : 'bg-white/5 text-gray-300 hover:text-white'
+            }`}
+          >
+            <ImageIcon className="w-4 h-4" />
+            Before-After Proofs ({galleryList.length})
+          </button>
+
+          <button
             onClick={() => setActiveTab('media')}
             className={`px-5 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition ${
               activeTab === 'media' ? 'bg-amber-400 text-black font-bold' : 'bg-white/5 text-gray-300 hover:text-white'
@@ -248,67 +349,57 @@ export default function AdminPage() {
 
               {inquiries.length === 0 ? (
                 <div className="p-12 text-center text-gray-400">
-                  No inquiries received yet. Submit a test form on the home page.
+                  <MessageSquare className="w-12 h-12 mx-auto text-gray-600 mb-3" />
+                  <p>No client inquiries recorded yet.</p>
                 </div>
               ) : (
-                <div className="divide-y divide-white/10">
+                <div className="divide-y divide-white/5">
                   {inquiries.map((inq) => (
-                    <div key={inq.id} className="p-5 space-y-3 hover:bg-white/[0.02] transition">
+                    <div key={inq.id} className="p-6 hover:bg-white/[0.02] transition space-y-3">
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <div className="flex items-center gap-3">
                           <span className="font-bold text-white text-base">{inq.name}</span>
-                          <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${
-                            inq.status === 'new' ? 'bg-amber-500/20 text-amber-400 border border-amber-400/30' :
-                            inq.status === 'converted' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-400/30' :
-                            'bg-blue-500/20 text-blue-400 border border-blue-400/30'
-                          }`}>
-                            {inq.status}
+                          <span className="text-xs px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                            {inq.service}
                           </span>
                         </div>
-                        <span className="text-xs text-gray-500">
-                          {inq.created_at ? new Date(inq.created_at).toLocaleString() : 'Just now'}
+                        <span className="text-xs text-gray-400 flex items-center gap-1">
+                          <Clock className="w-3.5 h-3.5" />
+                          {new Date(inq.created_at).toLocaleDateString()}
                         </span>
                       </div>
 
-                      <div className="text-xs text-gray-300 grid grid-cols-1 sm:grid-cols-3 gap-2 bg-black/30 p-3 rounded-lg">
-                        <div><strong className="text-gray-400">Service:</strong> {inq.service || 'Social Media Management'}</div>
-                        <div><strong className="text-gray-400">Phone:</strong> {inq.phone}</div>
-                        <div><strong className="text-gray-400">Email:</strong> {inq.email || 'N/A'}</div>
-                      </div>
+                      <p className="text-sm text-gray-300 bg-black/30 p-3.5 rounded-xl border border-white/5">
+                        "{inq.message || 'No additional message provided'}"
+                      </p>
 
-                      {inq.message && (
-                        <p className="text-xs text-gray-300 italic bg-white/[0.02] p-3 rounded-lg border border-white/5">
-                          "{inq.message}"
-                        </p>
-                      )}
-
-                      <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-                        <div className="flex items-center gap-2">
-                          <a
-                            href={`https://wa.me/91${inq.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hi ${inq.name}, Aniket Pal here regarding your social media management inquiry.`)}`}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white flex items-center gap-1"
-                          >
-                            <Phone className="w-3 h-3" /> WhatsApp Lead
-                          </a>
+                      <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
+                        <div className="flex items-center gap-4 text-xs text-gray-400">
+                          {inq.phone && (
+                            <a
+                              href={`https://wa.me/91${inq.phone.replace(/[^0-9]/g, '')}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-emerald-400 hover:underline flex items-center gap-1 font-semibold"
+                            >
+                              <Phone className="w-3.5 h-3.5" /> WhatsApp: {inq.phone}
+                            </a>
+                          )}
                           {inq.email && (
                             <a
-                              href={`mailto:${inq.email}?subject=Social Media Management - Aniket Pal`}
-                              className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-pink-600 hover:bg-pink-500 text-white flex items-center gap-1"
+                              href={`mailto:${inq.email}`}
+                              className="text-blue-400 hover:underline flex items-center gap-1"
                             >
-                              <Mail className="w-3 h-3" /> Send Email
+                              <Mail className="w-3.5 h-3.5" /> {inq.email}
                             </a>
                           )}
                         </div>
 
-                        {/* Status selector */}
                         <div className="flex items-center gap-2">
-                          <span className="text-xs text-gray-400">Status:</span>
                           <select
                             value={inq.status || 'new'}
                             onChange={(e) => handleStatusChange(inq.id, e.target.value)}
-                            className="text-xs bg-[#1a1438] border border-white/20 rounded-md px-2 py-1 text-white focus:outline-none"
+                            className="text-xs bg-black/60 border border-white/20 rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:border-amber-400"
                           >
                             <option value="new">New</option>
                             <option value="contacted">Contacted</option>
@@ -325,71 +416,214 @@ export default function AdminPage() {
           </div>
         )}
 
-        {/* Tab 2: Cloudinary Media Hub */}
-        {activeTab === 'media' && (
-          <div className="space-y-6">
-            <div className="glass-panel p-8 rounded-2xl border border-white/10 space-y-6">
-              <div>
-                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                  <UploadCloud className="w-6 h-6 text-amber-400" />
-                  Cloudinary Asset Upload
-                </h3>
-                <p className="text-xs text-gray-400 mt-1">
-                  Upload client project reels, graphics, thumbnails, or case study photos to Cloudinary.
-                </p>
+        {/* Tab 2: Before & After Proofs Gallery Manager */}
+        {activeTab === 'gallery' && (
+          <div className="space-y-8">
+            
+            {/* Create / Edit Form */}
+            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6">
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <div>
+                  <h3 className="text-xl font-black text-white flex items-center gap-2">
+                    <Plus className="w-5 h-5 text-amber-400" />
+                    {editingProofId ? 'Edit Transformation Card' : 'Add New Transformation Proof'}
+                  </h3>
+                  <p className="text-xs text-gray-400 mt-0.5">
+                    Upload before/after proof screenshots and configure client statistics
+                  </p>
+                </div>
+                {editingProofId && (
+                  <button
+                    onClick={() => {
+                      setEditingProofId(null);
+                      setNewProof({ name: '', handle: '', category: 'Lifestyle & Business', growth: '+1,500 Followers', image: '' });
+                    }}
+                    className="text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-lg border border-white/20"
+                  >
+                    Cancel Editing
+                  </button>
+                )}
               </div>
 
-              {/* File Dropzone */}
-              <div className="border-2 border-dashed border-purple-500/40 rounded-2xl p-8 text-center hover:border-amber-400 transition bg-black/20">
-                <input
-                  type="file"
-                  id="mediaFile"
-                  onChange={handleFileUpload}
-                  className="hidden"
-                  accept="image/*,video/*"
-                />
-                <label htmlFor="mediaFile" className="cursor-pointer block space-y-3">
-                  <div className="w-14 h-14 rounded-full bg-purple-600/20 text-purple-400 mx-auto flex items-center justify-center">
-                    <ImageIcon className="w-7 h-7" />
+              <form onSubmit={handleSaveProof} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-300 mb-1">Client / Brand Name *</label>
+                    <input
+                      required
+                      type="text"
+                      placeholder="e.g. Rahul Verma"
+                      value={newProof.name}
+                      onChange={(e) => setNewProof({ ...newProof, name: e.target.value })}
+                      className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 text-sm"
+                    />
                   </div>
                   <div>
-                    <span className="text-sm font-bold text-amber-400 hover:underline">
-                      Click to choose image or video
-                    </span>
-                    <p className="text-xs text-gray-400 mt-1">PNG, JPG, MP4 up to 50MB</p>
+                    <label className="block text-xs font-bold text-gray-300 mb-1">Instagram Handle *</label>
+                    <input
+                      required
+                      type="text"
+                      placeholder="e.g. @rahul_fitness"
+                      value={newProof.handle}
+                      onChange={(e) => setNewProof({ ...newProof, handle: e.target.value })}
+                      className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 text-sm"
+                    />
                   </div>
-                </label>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-300 mb-1">Category / Niche</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Fitness & Gym, Beauty & Salon, Politician"
+                      value={newProof.category}
+                      onChange={(e) => setNewProof({ ...newProof, category: e.target.value })}
+                      className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 text-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-gray-300 mb-1">Growth Badge *</label>
+                    <input
+                      required
+                      type="text"
+                      placeholder="e.g. +2,400 Followers"
+                      value={newProof.growth}
+                      onChange={(e) => setNewProof({ ...newProof, growth: e.target.value })}
+                      className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Image Upload / URL */}
+                <div>
+                  <label className="block text-xs font-bold text-gray-300 mb-1">Before & After Screenshot *</label>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <input
+                      type="text"
+                      placeholder="Enter Image URL or upload below (e.g. /gallery/jitendra.webp)"
+                      value={newProof.image}
+                      onChange={(e) => setNewProof({ ...newProof, image: e.target.value })}
+                      className="flex-1 px-4 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 text-sm"
+                    />
+                    <label className="glow-outline-btn px-4 py-2 rounded-xl text-xs flex items-center justify-center gap-2 cursor-pointer shrink-0">
+                      <UploadCloud className="w-4 h-4" />
+                      <span>{proofUploading ? 'Uploading...' : 'Upload Image'}</span>
+                      <input type="file" accept="image/*" onChange={handleProofImageUpload} className="hidden" />
+                    </label>
+                  </div>
+                </div>
+
+                {newProof.image && (
+                  <div className="mt-2 flex items-center gap-3 p-3 bg-black/30 rounded-xl border border-white/10 w-fit">
+                    <img src={newProof.image} alt="Preview" className="h-16 w-auto object-contain rounded-lg" />
+                    <span className="text-xs text-emerald-400 font-semibold">Image Ready</span>
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  className="glow-yellow-btn px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2"
+                >
+                  <Save className="w-4 h-4" />
+                  <span>{editingProofId ? 'Update Transformation Card' : 'Save & Publish to Gallery'}</span>
+                </button>
+              </form>
+            </div>
+
+            {/* List of Live Proofs */}
+            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6">
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <h3 className="text-xl font-black text-white">Live Gallery Proofs ({galleryList.length})</h3>
+                <button
+                  onClick={handleResetGallery}
+                  className="text-xs text-gray-400 hover:text-amber-400 transition"
+                >
+                  Reset to Defaults
+                </button>
               </div>
 
-              {uploading && (
-                <div className="text-center text-sm text-amber-400 animate-pulse">
-                  Uploading media to Cloudinary...
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {galleryList.map((item) => (
+                  <div
+                    key={item.id}
+                    className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3 flex flex-col justify-between"
+                  >
+                    <div className="relative h-48 w-full bg-black/40 rounded-xl overflow-hidden flex items-center justify-center">
+                      <img src={item.image} alt={item.name} className="h-full w-auto object-contain" />
+                      <div className="absolute top-2 right-2 bg-emerald-500/90 text-white font-black text-[11px] px-2 py-0.5 rounded-md">
+                        {item.growth}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-extrabold text-white text-base">{item.name}</h4>
+                        <p className="text-xs text-gray-400">{item.handle} • {item.category}</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => handleEditProof(item)}
+                          className="p-2 rounded-lg bg-white/10 hover:bg-amber-400 hover:text-black transition text-gray-300"
+                          title="Edit"
+                        >
+                          <Edit3 className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteProof(item.id)}
+                          className="p-2 rounded-lg bg-white/10 hover:bg-rose-500 hover:text-white transition text-gray-300"
+                          title="Delete"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        )}
+
+        {/* Tab 3: Cloudinary Media Hub */}
+        {activeTab === 'media' && (
+          <div className="space-y-6">
+            <div className="glass-panel p-8 rounded-3xl border border-white/10 space-y-6">
+              <div>
+                <h3 className="text-xl font-black text-white">Upload Assets to Cloudinary CDN</h3>
+                <p className="text-xs text-gray-400 mt-1">Upload client photos, case studies, or portfolio images directly to Cloudinary.</p>
+              </div>
+
+              <div className="border-2 border-dashed border-white/20 rounded-2xl p-8 text-center space-y-4 hover:border-amber-400/50 transition">
+                <UploadCloud className="w-12 h-12 mx-auto text-amber-400" />
+                <div>
+                  <label className="glow-yellow-btn px-6 py-3 rounded-xl text-sm font-bold cursor-pointer inline-flex items-center gap-2">
+                    <span>{uploading ? 'Uploading to Cloudinary...' : 'Choose Media File'}</span>
+                    <input type="file" onChange={handleFileUpload} className="hidden" />
+                  </label>
                 </div>
-              )}
+                <p className="text-xs text-gray-500">Supports JPG, PNG, WEBP, MP4 (Max 25MB)</p>
+              </div>
 
               {uploadedUrl && (
-                <div className="bg-black/50 p-4 rounded-xl border border-emerald-500/40 space-y-3">
-                  <div className="flex items-center gap-2 text-emerald-400 font-semibold text-xs">
-                    <CheckCircle className="w-4 h-4" /> Media Uploaded Successfully!
-                  </div>
+                <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/40 space-y-2">
+                  <p className="text-xs text-emerald-400 font-bold flex items-center gap-1">
+                    <CheckCircle className="w-4 h-4" /> Media Uploaded Successfully:
+                  </p>
                   <div className="flex items-center gap-2">
                     <input
                       type="text"
                       readOnly
                       value={uploadedUrl}
-                      className="w-full text-xs bg-black/60 border border-white/10 px-3 py-2 rounded-lg text-gray-300 font-mono"
+                      className="flex-1 bg-black/60 border border-white/10 text-xs px-3 py-2 rounded-lg text-gray-300 font-mono"
                     />
                     <button
                       onClick={() => copyToClipboard(uploadedUrl)}
-                      className="glow-yellow-btn px-4 py-2 rounded-lg text-xs font-bold shrink-0 flex items-center gap-1"
+                      className="glow-yellow-btn px-3 py-2 rounded-lg text-xs font-bold"
                     >
-                      <Copy className="w-3.5 h-3.5" />
                       {copied ? 'Copied!' : 'Copy URL'}
                     </button>
-                  </div>
-
-                  <div className="relative h-48 max-w-sm rounded-lg overflow-hidden border border-white/10">
-                    <img src={uploadedUrl} alt="Uploaded" className="w-full h-full object-cover" />
                   </div>
                 </div>
               )}
@@ -397,26 +631,26 @@ export default function AdminPage() {
           </div>
         )}
 
-        {/* Tab 3: Site Configuration */}
+        {/* Tab 4: Site Configuration */}
         {activeTab === 'content' && (
-          <div className="glass-panel p-8 rounded-2xl border border-white/10 space-y-6">
-            <h3 className="text-xl font-bold text-white">Live Site Information</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-              <div className="p-4 rounded-xl bg-black/40 border border-white/10">
-                <span className="text-gray-400">Phone Number:</span>
-                <p className="text-white font-bold text-sm mt-1">+91 {INITIAL_SITE_DATA.about.phone}</p>
+          <div className="glass-panel p-8 rounded-3xl border border-white/10 space-y-6">
+            <h3 className="text-xl font-black text-white">Live Site Information</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-gray-300">
+              <div className="space-y-1 p-4 rounded-xl bg-white/5 border border-white/10">
+                <span className="text-gray-400 font-semibold">Primary Phone</span>
+                <p className="font-bold text-white text-sm">{INITIAL_SITE_DATA.about.phone}</p>
               </div>
-              <div className="p-4 rounded-xl bg-black/40 border border-white/10">
-                <span className="text-gray-400">Email Address:</span>
-                <p className="text-white font-bold text-sm mt-1">{INITIAL_SITE_DATA.about.email}</p>
+              <div className="space-y-1 p-4 rounded-xl bg-white/5 border border-white/10">
+                <span className="text-gray-400 font-semibold">Official Email</span>
+                <p className="font-bold text-white text-sm">{INITIAL_SITE_DATA.about.email}</p>
               </div>
-              <div className="p-4 rounded-xl bg-black/40 border border-white/10">
-                <span className="text-gray-400">Location:</span>
-                <p className="text-white font-bold text-sm mt-1">{INITIAL_SITE_DATA.about.location}</p>
+              <div className="space-y-1 p-4 rounded-xl bg-white/5 border border-white/10">
+                <span className="text-gray-400 font-semibold">Location</span>
+                <p className="font-bold text-white text-sm">{INITIAL_SITE_DATA.about.location}</p>
               </div>
-              <div className="p-4 rounded-xl bg-black/40 border border-white/10">
-                <span className="text-gray-400">Supabase SQL Schema:</span>
-                <p className="text-emerald-400 font-mono text-xs mt-1">supabase/schema.sql ready</p>
+              <div className="space-y-1 p-4 rounded-xl bg-white/5 border border-white/10">
+                <span className="text-gray-400 font-semibold">Secret Admin Path</span>
+                <p className="font-bold text-amber-400 text-sm font-mono">/admin12300</p>
               </div>
             </div>
           </div>

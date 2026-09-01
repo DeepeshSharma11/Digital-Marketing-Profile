@@ -6,6 +6,7 @@ import HeroSection from '../components/HeroSection';
 import LiveMarquee from '../components/LiveMarquee';
 import ServicesSection from '../components/ServicesSection';
 import GrowthCalculator from '../components/GrowthCalculator';
+import BeforeAfterGallery from '../components/BeforeAfterGallery';
 import BeforeAfterRevamp from '../components/BeforeAfterRevamp';
 import AboutSection from '../components/AboutSection';
 import StatsSection from '../components/StatsSection';
@@ -43,12 +44,17 @@ export default function HomePage() {
         <ServicesSection onOpenLetTalk={handleOpenModal} />
       </div>
 
+      {/* Real Client Transformations Before & After Gallery */}
+      <div className="section-smooth">
+        <BeforeAfterGallery onOpenLetTalk={handleOpenModal} />
+      </div>
+
       {/* Interactive Growth / ROI Calculator */}
       <div className="section-smooth">
         <GrowthCalculator onOpenLetTalk={handleOpenModal} />
       </div>
 
-      {/* Before vs After Profile Transformation */}
+      {/* Before vs After Profile Transformation Showcase */}
       <div className="section-smooth">
         <BeforeAfterRevamp onOpenLetTalk={handleOpenModal} />
       </div>

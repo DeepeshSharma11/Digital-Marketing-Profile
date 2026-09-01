@@ -32,6 +32,9 @@ export default function Navbar({ onOpenLetTalk }) {
             <Link href="#services" className="text-slate-600 font-semibold text-xs transition hover:text-amber-600">
               Services
             </Link>
+            <Link href="#transformation-gallery" className="text-slate-600 font-semibold text-xs transition hover:text-amber-600">
+              Transformations
+            </Link>
             <Link href="#portfolio" className="text-slate-600 font-semibold text-xs transition hover:text-amber-600">
               Portfolio
             </Link>
@@ -95,6 +98,13 @@ export default function Navbar({ onOpenLetTalk }) {
             className="block px-3 py-1.5 text-sm font-semibold text-slate-700 hover:text-amber-600 rounded-md hover:bg-slate-50"
           >
             Services
+          </Link>
+          <Link
+            href="#transformation-gallery"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-1.5 text-sm font-semibold text-slate-700 hover:text-amber-600 rounded-md hover:bg-slate-50"
+          >
+            Transformations
           </Link>
           <Link
             href="#portfolio"
