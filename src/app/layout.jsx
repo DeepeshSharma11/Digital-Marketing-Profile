@@ -23,8 +23,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="dark">
-      <body className="bg-background text-slate-100 min-h-screen selection:bg-brand-yellow selection:text-black">
+    <html lang="en">
+      <body className="bg-[#F8FAFC] text-slate-900 min-h-screen selection:bg-amber-400 selection:text-black">
         {children}
       </body>
     </html>

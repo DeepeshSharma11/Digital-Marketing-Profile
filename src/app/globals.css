@@ -4,89 +4,125 @@
 
 @layer base {
   :root {
-    --background: #080612;
-    --foreground: #f8fafc;
+    --background: #F8FAFC;
+    --foreground: #0F172A;
   }
   
   html {
     scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior-y: none;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
   body {
-    background-color: #080612;
-    color: #f8fafc;
+    background-color: #F8FAFC;
+    color: #0F172A;
     overflow-x: hidden;
+    touch-action: pan-y;
   }
 }
 
-/* Custom glowing effects and badges */
+/* GPU Accelerated Background Layer - Zero Scroll Repaint */
+.bg-mesh-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(245, 158, 11, 0.08) 0px, transparent 40%),
+    radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.07) 0px, transparent 45%),
+    radial-gradient(circle at 50% 60%, rgba(37, 99, 235, 0.06) 0px, transparent 45%),
+    radial-gradient(circle at 20% 85%, rgba(236, 72, 153, 0.06) 0px, transparent 40%);
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* Zero-Lag Glassmorphic Panels */
 .glass-panel {
-  background: rgba(18, 14, 38, 0.7);
+  background: rgba(255, 255, 255, 0.76);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, box-shadow;
 }
 
 .glass-panel-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .glass-panel-hover:hover {
-  background: rgba(28, 22, 58, 0.85);
-  border-color: rgba(147, 51, 234, 0.4);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px -10px rgba(124, 58, 237, 0.3);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(245, 158, 11, 0.4);
+  transform: translateY(-3px) translateZ(0);
+  box-shadow: 0 16px 30px -8px rgba(124, 58, 237, 0.1), 0 0 0 1px rgba(245, 158, 11, 0.2);
 }
 
 .glow-yellow-btn {
   background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
   color: #000000;
   font-weight: 700;
-  transition: all 0.25s ease;
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+  transform: translateZ(0);
 }
 
 .glow-yellow-btn:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 30px rgba(245, 158, 11, 0.6);
+  transform: scale(1.02) translateZ(0);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.45);
 }
 
 .glow-outline-btn {
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.04);
-  color: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  background: rgba(255, 255, 255, 0.85);
+  color: #0F172A;
   font-weight: 600;
-  transition: all 0.25s ease;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transform: translateZ(0);
 }
 
 .glow-outline-btn:hover {
-  border-color: #FBBF24;
-  background: rgba(251, 191, 36, 0.1);
-  transform: scale(1.02);
+  border-color: #F59E0B;
+  background: #FFFFFF;
+  color: #D97706;
+  transform: scale(1.02) translateZ(0);
 }
 
 .floating-badge {
-  background: radial-gradient(circle at center, #2563EB 0%, #1E1B4B 100%);
-  border: 2px dashed rgba(255, 255, 255, 0.4);
-  box-shadow: 0 0 25px rgba(37, 99, 235, 0.5);
+  background: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);
+  border: 2px dashed rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
   animation: float 3.5s ease-in-out infinite;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Content Optimization for 60/120fps Smooth Scrolling */
+.section-smooth {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #080612;
+  background: #F8FAFC;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #272242;
+  background: #CBD5E1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7C3AED;
+  background: #94A3B8;
 }
