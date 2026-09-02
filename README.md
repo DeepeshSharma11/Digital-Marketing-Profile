@@ -44,7 +44,6 @@ npm install
 npm run dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) (Admin portal at [http://localhost:3000/admin12300](http://localhost:3000/admin12300)).
 
 ---
 
