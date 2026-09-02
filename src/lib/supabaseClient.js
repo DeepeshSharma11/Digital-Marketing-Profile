@@ -58,6 +58,31 @@ export async function submitInquiry(inquiryData) {
     created_at: new Date().toISOString()
   };
 
+  // 1. Direct Email Delivery via FormSubmit.co (shayar.boy200@gmail.com)
+  try {
+    await fetch('https://formsubmit.co/ajax/shayar.boy200@gmail.com', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        _subject: `New Lead from Portfolio: ${inquiryData.name || 'Website Inquiry'}`,
+        _template: 'table',
+        _captcha: 'false',
+        'Client Name': inquiryData.name,
+        'Phone Number': inquiryData.phone,
+        'Email Address': inquiryData.email || 'N/A',
+        'Required Service': inquiryData.service || 'Instagram Management',
+        'Message / Goals': inquiryData.message || 'No message provided',
+        'Submission Date': new Date().toLocaleString('en-IN')
+      })
+    });
+  } catch (formSubmitErr) {
+    console.warn('FormSubmit notification error:', formSubmitErr);
+  }
+
+  // 2. Persist in Supabase DB if configured
   if (isSupabaseConfigured && supabase) {
     try {
       const { data, error } = await supabase.from('inquiries').insert([inquiryData]).select();
@@ -67,7 +92,7 @@ export async function submitInquiry(inquiryData) {
     }
   }
 
-  // Fallback storage
+  // 3. Fallback storage
   if (typeof window !== 'undefined') {
     const existing = await getInquiries();
     const updated = [newEntry, ...existing];

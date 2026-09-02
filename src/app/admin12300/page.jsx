@@ -26,7 +26,9 @@ import {
   Save,
   Sparkles,
   LogOut,
-  RefreshCw
+  RefreshCw,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 import { getInquiries, updateInquiryStatus, isSupabaseConfigured } from '../../lib/supabaseClient';
 import { uploadToCloudinary } from '../../lib/cloudinary';
@@ -35,6 +37,7 @@ import { INITIAL_SITE_DATA, getStoredGallery, saveStoredGallery } from '../../li
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState('');
   
   const [activeTab, setActiveTab] = useState('inquiries');
@@ -216,13 +219,28 @@ export default function AdminPage() {
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1.5">Admin Passcode</label>
-              <input
-                type="password"
-                placeholder="Enter secret passcode"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 text-sm font-medium shadow-sm transition"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Enter secret passcode"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-3 pr-11 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 text-sm font-medium shadow-sm transition"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 p-1 rounded-lg hover:bg-slate-100 transition focus:outline-none cursor-pointer"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  title={showPassword ? 'Hide passcode' : 'Show passcode'}
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4 text-slate-600" />
+                  ) : (
+                    <Eye className="w-4 h-4 text-slate-400 hover:text-slate-600" />
+                  )}
+                </button>
+              </div>
               {authError && <p className="text-xs text-rose-600 font-bold mt-1.5">{authError}</p>}
             </div>
 

@@ -129,12 +129,18 @@ export default function ContactSection({ onOpenLetTalk }) {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form
+                  onSubmit={handleSubmit}
+                  action="https://formsubmit.co/shayar.boy200@gmail.com"
+                  method="POST"
+                  className="space-y-5"
+                >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">Your Full Name *</label>
                       <input
                         required
+                        name="name"
                         type="text"
                         placeholder="John Doe"
                         value={formData.name}
@@ -146,6 +152,7 @@ export default function ContactSection({ onOpenLetTalk }) {
                       <label className="block text-xs font-bold text-slate-700 mb-1">Phone Number *</label>
                       <input
                         required
+                        name="phone"
                         type="tel"
                         placeholder="9876543210"
                         value={formData.phone}
@@ -159,6 +166,7 @@ export default function ContactSection({ onOpenLetTalk }) {
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
                       <input
+                        name="email"
                         type="email"
                         placeholder="you@domain.com"
                         value={formData.email}
@@ -169,6 +177,7 @@ export default function ContactSection({ onOpenLetTalk }) {
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">Required Service</label>
                       <select
+                        name="service"
                         value={formData.service}
                         onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                         className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-900 focus:outline-none focus:border-amber-500 font-medium"
@@ -185,6 +194,7 @@ export default function ContactSection({ onOpenLetTalk }) {
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">Message / Requirements</label>
                     <textarea
+                      name="message"
                       rows="4"
                       placeholder="Tell us about your brand goals, target audience, or current challenges..."
                       value={formData.message}

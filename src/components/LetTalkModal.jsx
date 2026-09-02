@@ -64,11 +64,17 @@ export default function LetTalkModal({ isOpen, onClose }) {
               Let's scale your business with viral content and high-converting strategies.
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form
+              onSubmit={handleSubmit}
+              action="https://formsubmit.co/shayar.boy200@gmail.com"
+              method="POST"
+              className="space-y-4"
+            >
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">Your Name *</label>
                 <input
                   required
+                  name="name"
                   type="text"
                   placeholder="e.g. Rahul Sharma"
                   value={formData.name}
@@ -82,6 +88,7 @@ export default function LetTalkModal({ isOpen, onClose }) {
                   <label className="block text-xs font-bold text-slate-700 mb-1">Phone Number *</label>
                   <input
                     required
+                    name="phone"
                     type="tel"
                     placeholder="e.g. 9876543210"
                     value={formData.phone}
@@ -92,6 +99,7 @@ export default function LetTalkModal({ isOpen, onClose }) {
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
                   <input
+                    name="email"
                     type="email"
                     placeholder="e.g. name@brand.com"
                     value={formData.email}
@@ -104,6 +112,7 @@ export default function LetTalkModal({ isOpen, onClose }) {
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">Service Interested In</label>
                 <select
+                  name="service"
                   value={formData.service}
                   onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                   className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 font-medium transition"
@@ -120,6 +129,7 @@ export default function LetTalkModal({ isOpen, onClose }) {
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">Brief Description / Goals</label>
                 <textarea
+                  name="message"
                   rows="3"
                   placeholder="Tell us about your brand goals or current social handles..."
                   value={formData.message}
