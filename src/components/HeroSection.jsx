@@ -1,9 +1,12 @@
 'use client';
 
 import React from 'react';
-import { ArrowRight, Instagram, Youtube, Facebook, Heart, ThumbsUp, Users, Sparkles } from 'lucide-react';
+import { ArrowRight, Instagram, Youtube, Facebook, Linkedin, Heart, ThumbsUp, Users, Sparkles } from 'lucide-react';
+import { INITIAL_SITE_DATA } from '../lib/mockData';
 
 export default function HeroSection({ onOpenLetTalk }) {
+  const socialLinks = INITIAL_SITE_DATA.hero.socialLinks;
+
   return (
     <section id="home" className="relative pt-24 pb-16 md:pt-28 md:pb-24 overflow-hidden bg-hero-gradient">
       {/* Background Soft Atmospheric Blobs */}
@@ -48,7 +51,7 @@ export default function HeroSection({ onOpenLetTalk }) {
             {/* Social Icons */}
             <div className="pt-4 flex items-center justify-center lg:justify-start gap-4">
               <a
-                href="https://instagram.com"
+                href={socialLinks.instagram}
                 target="_blank"
                 rel="noreferrer"
                 className="w-12 h-12 rounded-full bg-gradient-to-br from-[#833ab4] via-[#fd1d1d] to-[#fcb045] p-[2px] shadow-md hover:scale-110 transition"
@@ -60,7 +63,7 @@ export default function HeroSection({ onOpenLetTalk }) {
               </a>
 
               <a
-                href="https://youtube.com"
+                href={socialLinks.youtube}
                 target="_blank"
                 rel="noreferrer"
                 className="w-12 h-12 rounded-full bg-red-50 border border-red-200 p-[2px] shadow-md hover:scale-110 transition flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white"
@@ -70,13 +73,23 @@ export default function HeroSection({ onOpenLetTalk }) {
               </a>
 
               <a
-                href="https://facebook.com"
+                href={socialLinks.facebook}
                 target="_blank"
                 rel="noreferrer"
                 className="w-12 h-12 rounded-full bg-blue-50 border border-blue-200 p-[2px] shadow-md hover:scale-110 transition flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white"
                 aria-label="Facebook"
               >
                 <Facebook className="w-5 h-5" />
+              </a>
+
+              <a
+                href={socialLinks.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="w-12 h-12 rounded-full bg-sky-50 border border-sky-200 p-[2px] shadow-md hover:scale-110 transition flex items-center justify-center text-[#0A66C2] hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2]"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-5 h-5" />
               </a>
             </div>
           </div>

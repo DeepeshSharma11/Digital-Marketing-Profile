@@ -2,12 +2,13 @@
 
 import React, { useEffect } from 'react';
 import Link from 'next/link';
-import { Instagram, Youtube, Facebook, Phone, Mail, MapPin, Code2 } from 'lucide-react';
+import { Instagram, Youtube, Facebook, Linkedin, Phone, Mail, MapPin, Code2 } from 'lucide-react';
 import { INITIAL_SITE_DATA } from '../lib/mockData';
 import { getDeveloperAttribution, enforceBrandIntegrity } from '../lib/branding';
 
 export default function Footer() {
   const about = INITIAL_SITE_DATA.about;
+  const socialLinks = INITIAL_SITE_DATA.hero.socialLinks;
   const brand = getDeveloperAttribution();
 
   useEffect(() => {
@@ -67,7 +68,7 @@ export default function Footer() {
             <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Follow Me</h4>
             <div className="flex items-center gap-3">
               <a
-                href="https://instagram.com"
+                href={socialLinks.instagram}
                 target="_blank"
                 rel="noreferrer"
                 className="w-10 h-10 rounded-full bg-pink-50 border border-pink-200 text-pink-600 flex items-center justify-center hover:bg-pink-600 hover:text-white transition shadow-sm"
@@ -77,7 +78,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://youtube.com"
+                href={socialLinks.youtube}
                 target="_blank"
                 rel="noreferrer"
                 className="w-10 h-10 rounded-full bg-red-50 border border-red-200 text-red-600 flex items-center justify-center hover:bg-red-600 hover:text-white transition shadow-sm"
@@ -87,13 +88,23 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://facebook.com"
+                href={socialLinks.facebook}
                 target="_blank"
                 rel="noreferrer"
                 className="w-10 h-10 rounded-full bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center hover:bg-blue-600 hover:text-white transition shadow-sm"
                 aria-label="Facebook"
               >
                 <Facebook className="w-5 h-5" />
+              </a>
+
+              <a
+                href={socialLinks.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="w-10 h-10 rounded-full bg-sky-50 border border-sky-200 text-[#0A66C2] flex items-center justify-center hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] transition shadow-sm"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-5 h-5" />
               </a>
             </div>
             <p className="text-xs text-slate-500 leading-relaxed font-medium">

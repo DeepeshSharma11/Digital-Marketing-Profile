@@ -5,7 +5,7 @@ export const metadata = {
   description: 'Grow your business with smart strategies, engaging content, and real results. Specializing in Instagram, YouTube, Facebook, Video Editing, and viral Reels.',
   keywords: 'Social Media Manager, Aniket Pal, Digital Marketing Bareilly, Instagram Growth, YouTube SEO, Video Editing, Content Creator, Deepesh Sharma, Focitech',
   authors: [
-    { name: 'Aniket Pal', url: 'https://instagram.com' },
+    { name: 'Aniket Pal', url: 'https://www.instagram.com/aniketxpal?igsi=YWpyZWxnaHFueHBh&utm_source=qr' },
     { name: 'Deepesh Sharma', url: 'https://focitech.in/deepesh-sharma' }
   ],
   creator: 'Deepesh Sharma (CTO & Co-Founder, Focitech.in)',
@@ -93,9 +93,10 @@ const jsonLd = {
         'longitude': 79.4304
       },
       'sameAs': [
-        'https://instagram.com',
-        'https://youtube.com',
-        'https://facebook.com'
+        'https://www.linkedin.com/in/aniket-pal-a93310335/',
+        'https://www.instagram.com/aniketxpal?igsi=YWpyZWxnaHFueHBh&utm_source=qr',
+        'https://www.facebook.com/share/19dHFKaYo5/?mibextid=wwXIfr',
+        'https://youtube.com/@swiftairlines_0224?si=HECPKCfLk-gBTO2K'
       ]
     }
   ]

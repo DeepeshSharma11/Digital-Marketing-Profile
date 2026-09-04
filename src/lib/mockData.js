@@ -7,9 +7,10 @@ export const INITIAL_SITE_DATA = {
     ctaPrimary: "Get Started",
     ctaSecondary: "View My Work",
     socialLinks: {
-      instagram: "https://instagram.com",
-      youtube: "https://youtube.com",
-      facebook: "https://facebook.com"
+      linkedin: "https://www.linkedin.com/in/aniket-pal-a93310335/",
+      instagram: "https://www.instagram.com/aniketxpal?igsi=YWpyZWxnaHFueHBh&utm_source=qr",
+      facebook: "https://www.facebook.com/share/19dHFKaYo5/?mibextid=wwXIfr",
+      youtube: "https://youtube.com/@swiftairlines_0224?si=HECPKCfLk-gBTO2K"
     },
     metrics: {
       likes: "10K",
